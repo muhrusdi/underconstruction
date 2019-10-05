@@ -1,7 +1,38 @@
-/**
- * Implement Gatsby's Node APIs in this file.
- *
- * See: https://www.gatsbyjs.org/docs/node-apis/
- */
+require('dotenv').config()
 
-// You can delete this file if you're not using it
+const path = require('path')
+const Dotenv = require('dotenv-webpack')
+
+const aliases = {
+  Containers: path.resolve(__dirname, "src/containers"),
+  Components: path.resolve(__dirname, "src/components"),
+  Templates: path.resolve(__dirname, "src/templates"),
+  Images: path.resolve(__dirname, "src/images"),
+  Utils: path.resolve(__dirname, "src/components/utilities"),
+  Layout: path.resolve(__dirname, "src/containers/layouts"),
+  Hocs: path.resolve(__dirname, "src/hocs"),
+  Hooks: path.resolve(__dirname, "src/hooks"),
+  Contexts: path.resolve(__dirname, "src/contexts"),
+  Config: path.resolve(__dirname, "config"),
+}
+
+
+exports.onCreateWebpackConfig = ({
+  stage, getConfig, rules, loaders, actions
+ }) => {
+   actions.setWebpackConfig({
+     resolve: {
+       alias: aliases
+     },
+     plugins: [
+      new Dotenv({
+        path: path.join(__dirname, '.env'),
+        systemvars: true
+      })
+     ]
+   });
+
+   actions.setBabelPlugin({
+      name:  `babel-plugin-styled-components`
+    })
+ }
