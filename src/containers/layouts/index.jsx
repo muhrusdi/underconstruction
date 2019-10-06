@@ -3,6 +3,7 @@ import styled from "styled-components"
 import { useStaticQuery, graphql } from "gatsby"
 import Img from "gatsby-image"
 import Container from 'Components/container'
+import { Helmet } from "react-helmet"
 import "./styles.css"
 import Particles from "react-particles-js"
 import img1 from "Images/img-1.png"
@@ -39,6 +40,9 @@ const Layout = ({children}) => {
   )
   return (
     <>
+      <Helmet>
+        <title>Dauroh</title>
+      </Helmet>
       <Particles
         style={{position: "absolute", zIndex: -1}}
         params={{
